@@ -23,7 +23,7 @@ public class GroupRepository {
     }
 
     public Collection<Group> getGroupsForUser(long userId) {
-        return jdbcTemplate.query("select group_id, group_name from user_group " +
+        return jdbcTemplate.query("select group_pk, group_name from user_group " +
                         "inner join agroup on user_group.group_id=agroup.group_pk " +
                         "where user_group.user_id = ?",
                 new Object[] {userId},
