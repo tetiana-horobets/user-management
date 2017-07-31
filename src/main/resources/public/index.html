@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Management</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="/js/user.js"></script>
+</head>
+<body style="padding-top: 70px">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">User Management</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Users</a></li>
+                <li><a href="/groups.html">Groups</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="starter-template">
+        <div>
+            <h1>Users
+                <button id="open-add-form" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span> Add user</button>
+            </h1>
+            <div class="clearfix"></div>
+
+            <div class="well">
+                <input type="checkbox" id="group-filter"/> Filter by group
+                <select id="group-filter-select" style="display:none"></select>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <hr/>
+
+        <div id="alert-area"></div>
+
+        <div id="users">Please wait</div>
+
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="addModalLabel">Add user</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="username" class="col-sm-3 control-label">Username</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="col-sm-3 control-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userbirth" class="col-sm-3 control-label">Birthday</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="userbirth" placeholder="Birthday">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="add-user-button" data-dismiss="modal" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="editModalLabel">Edit user</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="edit-username" class="col-sm-3 control-label">Username</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="edit-username" placeholder="Username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-password" class="col-sm-3 control-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="edit-password" placeholder="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-firstName" class="col-sm-3 control-label">First Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="edit-firstName" placeholder="First Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-lastName" class="col-sm-3 control-label">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="edit-lastName" placeholder="Last Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-userbirth" class="col-sm-3 control-label">Birthday</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="edit-userbirth" placeholder="Birthday">
+                                </div>
+                            </div>
+                            <input id="edit-id" type="hidden"/>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="edit-user-button" data-dismiss="modal" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="groupModalLabel">User Groups</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="groups-user-id"/>
+                        <div id="groups"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="save-groups-button" data-dismiss="modal" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
